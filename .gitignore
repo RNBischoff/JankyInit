@@ -1,7 +1,8 @@
 __pycache__
 *.swp
 venv/
-ssh_keys/
 servers/**/*
+ssh_keys/**/*
 
 !servers/example.yaml
+!ssh_keys/example.pub
