@@ -93,7 +93,7 @@ class JankyInit():
                     "sed -i '/PubkeyAuthentication/s/^#//' /etc/ssh/sshd_config",
                     "sed -i '/AuthorizedKeysFile/s/^#//' /etc/ssh/sshd_config",
                     "sed -i 's/#PasswordAuthentication\\syes/PasswordAuthentication no/g' /etc/ssh/sshd_config",
-                    #"systemctl restart sshd"
+                    "systemctl restart sshd"
         ]
 
         for command in commands:
