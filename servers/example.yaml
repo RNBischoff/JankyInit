@@ -1,0 +1,12 @@
+hostname: "hostname.home.b1g.city"
+ip: "192.168.1.xxx"
+user: "username"
+user-pw: "password"
+ssh_keys: 
+  - "bigcity-large.pub"
+  - "bigcity-nano.pub"
+ssh_config: #to be used later to add the machine to local .ssh/config
+  - "bigcity-large.pub"
+software:
+  - "vim"
+  - "ufw"

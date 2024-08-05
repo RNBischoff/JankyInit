@@ -1,0 +1,7 @@
+__pycache__
+*.swp
+venv/
+ssh_keys/
+servers/**/*
+
+!servers/example.yaml

@@ -1,0 +1,5 @@
+ enter a long password locally to overwrite the temp one
+
+ add new server to .ssh/config on local machine with ssh_config key
+
+ add args for install_os, apps, ssh_key - default to all
