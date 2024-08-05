@@ -42,9 +42,7 @@ class JankyInit():
             stdin.flush()
 
         if stderr:
-            while not stdout.channel.exit_status_ready():
-                if stdout.channel.recv_ready():
-                    print(stderr.readlines())
+            print(stderr.readlines())
 
         while not stdout.channel.exit_status_ready():
             if stdout.channel.recv_ready():
