@@ -31,18 +31,19 @@ class JankyInit():
 
     def _run_command(self, command):
         self._ssh_client_connect()
-        full_command = f"sudo -S -p '' {command}"
+        full_command = f"sudo -S p '' {command}"
         print(full_command)
         stdin, stdout, stderr = self.client.exec_command(full_command)
         stdin.write(self.config['user-pw'] + "\n")
         stdin.flush()
 
+        err = stderr.readlines() 
+        if len(err) > 0: 
+            print(err)
+
         if "ufw enable" in command:
             stdin.write("y" + "\n")
             stdin.flush()
-
-        if stderr:
-            print(stderr.readlines())
 
         while not stdout.channel.exit_status_ready():
             if stdout.channel.recv_ready():
