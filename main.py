@@ -31,23 +31,27 @@ class JankyInit():
 
     def _run_command(self, command):
         self._ssh_client_connect()
-        full_command = f"sudo -S p '' {command}"
+        full_command = f"sudo -S -p '' {command}"
         print(full_command)
         stdin, stdout, stderr = self.client.exec_command(full_command)
         stdin.write(self.config['user-pw'] + "\n")
         stdin.flush()
 
-        err = stderr.readlines() 
-        if len(err) > 0: 
-            print(err)
+
 
         if "ufw enable" in command:
             stdin.write("y" + "\n")
             stdin.flush()
 
         while not stdout.channel.exit_status_ready():
+            err = stderr.readlines() 
+            if len(err) > 0: 
+                print(err)
+
             if stdout.channel.recv_ready():
                 print(stdout.channel.recv(9999).decode().strip())
+
+
 
         time.sleep(self.sleep)
 
@@ -85,10 +89,10 @@ class JankyInit():
 
         # convert to for loop with list of commands
         commands = ["mkdir .ssh",
-                    "chmod 700 .ssh", 
+                    f"chown -R {self.config["user"]}:{self.config["user"]} .ssh",
                     f"echo '{"".join(keys)}' >> .ssh/authorized_keys",
                     "chmod 600 .ssh/authorized_keys",
-                    f"chown -R {self.config["user"]}:{self.config["user"]} .ssh",
+                    "chmod 700 .ssh", 
                     "sed -i '/PubkeyAuthentication/s/^#//' /etc/ssh/sshd_config",
                     "sed -i '/AuthorizedKeysFile/s/^#//' /etc/ssh/sshd_config",
                     "sed -i 's/#PasswordAuthentication\\syes/PasswordAuthentication no/g' /etc/ssh/sshd_config",
